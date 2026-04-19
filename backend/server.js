@@ -1,16 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const db = require('./src/config/db');
-const authRoutes = require('./src/routes/authRoutes');
+const app = require('./src/app'); // Memanggil konfigurasi app
+const db = require('./src/config/db'); // Memanggil koneksi database
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 5000;
 
-// Routes
-app.use('/api/auth', authRoutes);
-
-// Jalankan Server & Sync DB
-db.sync().then(() => {
-    app.listen(5000, () => console.log('Server berjalan di port 5000'));
-});
+// Sinkronisasi Database
+db.sync()
+  .then(() => {
+    console.log('Database Karim Jaya berhasil terhubung.');
+    app.listen(PORT, () => {
+      console.log(`Server berjalan di: http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('Gagal terhubung ke database:', err.message);
+  });

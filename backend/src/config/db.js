@@ -1,9 +1,19 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config({ path: '../.env' });
+const dotenv = require('dotenv');
+const path = require('path');
 
-const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-});
+// Mengarahkan dotenv ke file .env yang ada di folder backend
+dotenv.config({ path: path.join(__dirname, '../../.env') });
+
+const db = new Sequelize(
+    process.env.DB_NAME, 
+    process.env.DB_USER, 
+    process.env.DB_PASS || '', // Jika pass kosong, gunakan string kosong
+    {
+        host: process.env.DB_HOST,
+        dialect: 'mysql',
+        logging: false // Agar terminal tidak penuh dengan log SQL
+    }
+);
 
 module.exports = db;
