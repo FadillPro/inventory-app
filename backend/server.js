@@ -1,25 +1,16 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
+const db = require('./src/config/db');
+const authRoutes = require('./src/routes/authRoutes');
 
+const app = express();
+app.use(cors());
 app.use(express.json());
 
+// Routes
+app.use('/api/auth', authRoutes);
 
-const productRoutes = require('./routes/product');
-const categoryRoutes = require('./routes/categories');
-const supplierRoutes = require('./routes/suplier');
-const purchaseRoutes = require('./routes/purchase');
-const salesRoutes = require('./routes/sales');
-const returnRoutes = require('./routes/returns');
-
-
-app.use('/api/products', productRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/suppliers', supplierRoutes);
-app.use('/api/purchases', purchaseRoutes);
-app.use('/api/sales', salesRoutes);
-app.use('/api/returns', returnRoutes);
-
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Web Service Pengelolaan Barang berjalan di port ${PORT}`);
+// Jalankan Server & Sync DB
+db.sync().then(() => {
+    app.listen(5000, () => console.log('Server berjalan di port 5000'));
 });
