@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun - Karim Jaya Komputer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Jarak aman untuk layar kecil */
+        }
+
+        .register-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .register-container h2 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .register-container p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745; /* Hijau agar beda dengan tombol login */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            background-color: #218838;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Daftar Akun Baru</h2>
+        <p>Bergabunglah dengan Karim Jaya Komputer</p>
+        
+        <form action="/proses-register" method="POST">
+            <div class="input-group">
+                <label for="fullname">Nama Lengkap</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Contoh: Budi Santoso" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Alamat Email</label>
+                <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="phone">Nomor WhatsApp</label>
+                <input type="tel" id="phone" name="phone" placeholder="0812xxxxxxx" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm_password">Konfirmasi Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Ulangi password" required>
+            </div>
+            
+            <button type="submit" class="btn-register">Daftar Sekarang</button>
+        </form>
+
+        <div class="login-link">
+            Sudah punya akun? <a href="login.html">Login di sini</a>
+        </div>
+
+        <div class="footer-text">
+            &copy; 2026 Karim Jaya Komputer. All rights reserved.
+        </div>
+    </div>
+
+</body>
+</html>

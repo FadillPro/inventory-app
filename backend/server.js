@@ -1,4 +1,4 @@
-const app = require('./src/app'); // Memanggil konfigurasi app
+const app = require('./src/App'); // Memanggil konfigurasi app
 const db = require('./src/config/db'); // Memanggil koneksi database
 
 const PORT = process.env.PORT || 5000;
@@ -14,3 +14,4 @@ db.sync()
   .catch(err => {
     console.error('Gagal terhubung ke database:', err.message);
   });
+  
