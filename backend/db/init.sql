@@ -1,121 +1,84 @@
--- DROP dulu kalau mau reset
-DROP TABLE IF EXISTS retur_detail, retur, barang_jual_detail, barang_jual, barang_beli, barang, kategori, supplier, "user" CASCADE;
+-- 1. Tabel Kategori
+CREATE TABLE kategori (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_kategori VARCHAR(45) NOT NULL
+);
 
--- ======================
--- TABLE USER
--- ======================
-CREATE TABLE "user" (
-    id SERIAL PRIMARY KEY,
+-- 2. Tabel Supplier
+CREATE TABLE supplier (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_supplier VARCHAR(45) NOT NULL,
+    kontak VARCHAR(45)
+);
+
+-- 3. Tabel User
+CREATE TABLE user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(45) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(45)
 );
 
--- ======================
--- TABLE SUPPLIER
--- ======================
-CREATE TABLE supplier (
-    id SERIAL PRIMARY KEY,
-    nama_supplier VARCHAR(45),
-    kontak VARCHAR(45)
-);
-
--- ======================
--- TABLE KATEGORI
--- ======================
-CREATE TABLE kategori (
-    id SERIAL PRIMARY KEY,
-    nama_kategori VARCHAR(45)
-);
-
--- ======================
--- TABLE BARANG
--- ======================
+-- 4. Tabel Barang
 CREATE TABLE barang (
-    id SERIAL PRIMARY KEY,
-    nama_barang VARCHAR(45),
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_barang VARCHAR(45) NOT NULL,
     spesifikasi VARCHAR(455),
     kategori_id INT,
     supplier_id INT,
-
-    CONSTRAINT fk_barang_kategori
-        FOREIGN KEY (kategori_id) REFERENCES kategori(id)
-        ON DELETE SET NULL,
-
-    CONSTRAINT fk_barang_supplier
-        FOREIGN KEY (supplier_id) REFERENCES supplier(id)
-        ON DELETE SET NULL
+    CONSTRAINT fk_barang_kategori FOREIGN KEY (kategori_id) REFERENCES kategori(id) ON DELETE SET NULL,
+    CONSTRAINT fk_barang_supplier FOREIGN KEY (supplier_id) REFERENCES supplier(id) ON DELETE SET NULL
 );
 
--- ======================
--- TABLE BARANG_BELI
--- ======================
+-- 5. Tabel Barang Beli (Pembelian)
 CREATE TABLE barang_beli (
-    id SERIAL PRIMARY KEY,
-    tgl_pembelian TIMESTAMP,
-    jumlah_barang INT,
-    total_bayar DECIMAL,
-    status_pembayaran VARCHAR(20),
-    user_id INT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tgl_pembelian DATETIME DEFAULT CURRENT_TIMESTAMP,
+    jumlah_barang INT NOT NULL,
+    total_bayar DECIMAL(15,2),
+    status_pembayaran ENUM('Lunas', 'Hutang', 'Proses'),
+    user_id_user INT,
     barang_id INT,
-
-    CONSTRAINT fk_beli_user
-        FOREIGN KEY (user_id) REFERENCES "user"(id)
-        ON DELETE SET NULL,
-
-    CONSTRAINT fk_beli_barang
-        FOREIGN KEY (barang_id) REFERENCES barang(id)
-        ON DELETE CASCADE
+    CONSTRAINT fk_pembelian_user FOREIGN KEY (user_id_user) REFERENCES user(id),
+    CONSTRAINT fk_pembelian_barang FOREIGN KEY (barang_id) REFERENCES barang(id)
 );
 
--- ======================
--- TABLE BARANG_JUAL
--- ======================
-CREATE TABLE barang_jual (
-    id SERIAL PRIMARY KEY,
-    tgl_jual TIMESTAMP,
-    metode_pembayaran VARCHAR(20),
-    total_harga_jual DECIMAL,
-    retur_id INT,
-    user_id INT,
-
-    CONSTRAINT fk_jual_user
-        FOREIGN KEY (user_id) REFERENCES "user"(id)
-        ON DELETE SET NULL
-);
-
--- ======================
--- TABLE BARANG_JUAL_DETAIL
--- ======================
-CREATE TABLE barang_jual_detail (
-    id SERIAL PRIMARY KEY,
-    jumlah INT,
-    barang_jual_id INT,
-    barang_id INT,
-
-    CONSTRAINT fk_detail_jual
-        FOREIGN KEY (barang_jual_id) REFERENCES barang_jual(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_detail_barang
-        FOREIGN KEY (barang_id) REFERENCES barang(id)
-        ON DELETE CASCADE
-);
-
--- ======================
--- TABLE RETUR
--- ======================
+-- 6. Tabel Retur
 CREATE TABLE retur (
-    id SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     alasan_retur VARCHAR(45),
     status_retur VARCHAR(45),
-    transaksi_stok_id_log INT
+    Transaksi_Stok_id_log INT -- Menyesuaikan field di ERD
 );
 
--- ======================
--- TABLE RETUR_DETAIL
--- ======================
+-- 7. Tabel Retur Detail
 CREATE TABLE retur_detail (
-    id SERIAL PRIMARY KEY,
-    jumlah INT
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    jumlah INT NOT NULL,
+    retur_id INT,
+    barang_id INT, -- Relasi ke barang (berdasarkan garis putus-putus ERD)
+    CONSTRAINT fk_retur_detail_main FOREIGN KEY (retur_id) REFERENCES retur(id),
+    CONSTRAINT fk_retur_barang FOREIGN KEY (barang_id) REFERENCES barang(id)
+);
+
+-- 8. Tabel Barang Jual (Penjualan)
+CREATE TABLE barang_jual (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tgl_jual DATETIME DEFAULT CURRENT_TIMESTAMP,
+    metode_pembayaran ENUM('Tunai', 'Transfer', 'Debit'),
+    total_harga_jual DECIMAL(15,2),
+    retur_id_retur INT NULL,
+    user_id_user INT,
+    CONSTRAINT fk_penjualan_user FOREIGN KEY (user_id_user) REFERENCES user(id),
+    CONSTRAINT fk_penjualan_retur FOREIGN KEY (retur_id_retur) REFERENCES retur(id)
+);
+
+-- 9. Tabel Barang Jual Detail
+CREATE TABLE barang_jual_det (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    jumlah INT NOT NULL,
+    barang_jual_id INT,
+    barang_id INT,
+    CONSTRAINT fk_det_jual_main FOREIGN KEY (barang_jual_id) REFERENCES barang_jual(id),
+    CONSTRAINT fk_det_jual_barang FOREIGN KEY (barang_id) REFERENCES barang(id)
 );

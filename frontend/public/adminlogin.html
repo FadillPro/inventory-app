@@ -4,162 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Karim Jaya Komputer</title>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
         body {
-            display: flex;
-            height: 100vh;
-            background: linear-gradient(135deg, #0f2a66, #1e88e5);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a3673 0%, #0d1b3a 100%);
         }
-
-        /* KIRI (INFO) */
-        .left {
-            width: 50%;
-            color: white;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        .left h1 {
-            font-size: 40px;
-        }
-
-        .left span {
-            color: #64b5f6;
-        }
-
-        .left p {
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-
-        .feature {
-            margin-top: 30px;
-        }
-
-        .feature p {
-            margin: 10px 0;
-        }
-
-        /* KANAN (LOGIN) */
-        .right {
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-box {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            width: 350px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .login-box h2 {
-            margin-bottom: 10px;
-        }
-
-        .login-box small {
-            color: gray;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 8px;
-            background: #1e88e5;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #1565c0;
-        }
-
-        .error {
-            color: red;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        @media(max-width: 768px) {
-            .left {
-                display: none;
-            }
-
-            .right {
-                width: 100%;
-            }
+        .login-input:focus {
+            box-shadow: 0 0 0 3px rgba(26, 54, 115, 0.2);
         }
     </style>
 </head>
+<body class="flex items-center justify-center min-h-screen p-4">
 
-<body>
+    <div class="w-full max-w-md">
+        <div class="flex justify-center mb-6">
+            <div class="bg-white/10 p-4 rounded-full backdrop-blur-md border border-white/20 shadow-2xl animate-bounce">
+                <i class="fa-solid fa-user-shield text-4xl text-white"></i>
+            </div>
+        </div>
 
-<!-- KIRI -->
-<div class="left">
-    <h1>KARIM JAYA <span>KOMPUTER</span></h1>
-    <p>Solusi Komputer Terpercaya</p>
+        <div class="glass-card rounded-3xl shadow-2xl overflow-hidden p-10 transform transition duration-500 hover:scale-[1.02]">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[#1a3673] tracking-tight">Admin Portal</h2>
+                <p class="text-gray-500 text-sm mt-2 font-medium">Khusus Otoritas Karim Jaya Komputer</p>
+                <div class="h-1 w-16 bg-[#1a3673] mx-auto mt-4 rounded-full"></div>
+            </div>
 
-    <div class="feature">
-        <p>✔ Produk Berkualitas</p>
-        <p>✔ Pelayanan Terbaik</p>
-        <p>✔ Support Profesional</p>
+            <form id="adminLoginForm" class="space-y-5">
+                <div class="relative">
+                    <label class="text-xs font-bold text-[#1a3673] uppercase ml-1 mb-2 block tracking-widest">Username Admin</label>
+                    <div class="flex items-center group">
+                        <span class="absolute left-4 text-gray-400 group-focus-within:text-[#1a3673] transition-colors">
+                            <i class="fa-solid fa-id-badge"></i>
+                        </span>
+                        <input type="text" id="adminUser" required
+                            class="login-input w-full pl-12 pr-4 py-4 rounded-2xl bg-gray-50 border-2 border-gray-100 outline-none transition-all focus:border-[#1a3673] focus:bg-white text-gray-700"
+                            placeholder="admin_kj01">
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <label class="text-xs font-bold text-[#1a3673] uppercase ml-1 mb-2 block tracking-widest">Master Password</label>
+                    <div class="flex items-center group">
+                        <span class="absolute left-4 text-gray-400 group-focus-within:text-[#1a3673] transition-colors">
+                            <i class="fa-solid fa-key"></i>
+                        </span>
+                        <input type="password" id="adminPass" required
+                            class="login-input w-full pl-12 pr-4 py-4 rounded-2xl bg-gray-50 border-2 border-gray-100 outline-none transition-all focus:border-[#1a3673] focus:bg-white text-gray-700"
+                            placeholder="••••••••">
+                    </div>
+                </div>
+
+                <button type="submit" 
+                    class="w-full bg-[#1a3673] text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:bg-[#254794] transition-all transform active:scale-95 flex items-center justify-center gap-3 mt-4">
+                    <span>MASUK PORTAL</span>
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                </button>
+            </form>
+
+            <div class="mt-8 text-center border-t border-gray-100 pt-6">
+                <a href="login.html" class="text-sm font-semibold text-gray-400 hover:text-[#1a3673] transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                    Kembali ke Login User
+                </a>
+            </div>
+        </div>
+
+        <p class="text-center text-white/50 text-xs mt-8 tracking-widest">
+            &copy; 2026 KARIM JAYA KOMPUTER • SYSTEM V.2.0
+        </p>
     </div>
-</div>
 
-<!-- KANAN -->
-<div class="right">
-    <div class="login-box">
-        <h2>Admin Login</h2>
-        <small>Karim Jaya Komputer</small>
+    <script>
+        document.getElementById('adminLoginForm').onsubmit = (e) => {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value;
+            
+            // Simpan status admin di localstorage
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("currentUser", user);
+            localStorage.setItem("role", "admin");
 
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-
-        <button onclick="login()">LOGIN</button>
-
-        <div class="error" id="error"></div>
-    </div>
-</div>
-
-<script>
-function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    // Simulasi login admin
-    if (username === "admin" && password === "karim123") {
-        alert("Login berhasil!");
-        window.location.href = "dashboard.html";
-    } else {
-        document.getElementById("error").innerText = "Username atau password salah!";
-    }
-}
-</script>
-
+            // Redirect ke dashboard
+            window.location.href = "dashboard.html";
+        };
+    </script>
 </body>
 </html>

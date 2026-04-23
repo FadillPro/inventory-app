@@ -3,245 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karim Jaya Komputer</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <title>Karim Jaya Komputer - Solusi Teknologi Anda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(26, 54, 115, 0.95) 0%, rgba(13, 27, 58, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
         }
-
-        body {
-            background: #f5f5f5;
-        }
-
-        header {
-            background: #1e3a8a;
-            color: white;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            cursor: pointer;
-        }
-
-        .hero {
-            background: linear-gradient(to right, #2563eb, #1e3a8a);
-            color: white;
-            padding: 80px;
-            text-align: center;
-        }
-
-        .section {
-            padding: 50px;
-            text-align: center;
-        }
-
-        .services {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 250px;
-        }
-
-        footer {
-            background: #1e3a8a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #1e3a8a;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .switch {
-            margin-top: 10px;
-            font-size: 12px;
-            cursor: pointer;
-            color: blue;
-        }
+        .service-card:hover { transform: translateY(-10px); }
     </style>
 </head>
+<body class="bg-gray-50 text-slate-800">
 
-<body>
-
-<header>
-    <h1>Karim Jaya Komputer</h1>
-    <nav>
-        <a onclick="openLogin()">Login</a>
-        <a onclick="openAdminLogin()">Admin</a>
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-[#1a3673] p-2 rounded-lg">
+                    <i class="fa-solid fa-microchip text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold text-[#1a3673] tracking-tight">Karim Jaya komputer</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#beranda" class="hover:text-[#1a3673] transition">Beranda</a>
+                <a href="#layanan" class="hover:text-[#1a3673] transition">Layanan</a>
+                <a href="#tentang" class="hover:text-[#1a3673] transition">Tentang Kami</a>
+                <div class="h-6 w-px bg-gray-200"></div>
+                <a href="login.html" class="hover:text-[#1a3673] transition">Login User</a>
+                <a href="adminlogin.html" class="bg-[#1a3673] text-white px-5 py-2.5 rounded-full shadow-lg hover:bg-blue-800 transition">Portal Admin</a>
+            </div>
+        </div>
     </nav>
-</header>
 
-<section class="hero">
-    <h2>Selamat Datang</h2>
-    <p>Solusi terbaik komputer Anda</p>
-</section>
+    <header id="beranda" class="hero-gradient min-h-screen flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="animate__animated animate__fadeInLeft">
+                <span class="inline-block px-4 py-1.5 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-xs font-bold uppercase tracking-widest mb-6">
+                    Solusi IT Terpercaya
+                </span>
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+                    Membangun Masa Depan <span class="text-blue-400">Teknologi</span> Anda
+                </h1>
+                <p class="text-lg text-blue-100/80 mb-10 leading-relaxed max-w-lg">
+                    Karim Jaya Komputer menyediakan layanan service laptop profesional, penjualan perangkat keras berkualitas, dan instalasi software terlisensi.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#layanan" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold shadow-2xl transition transform hover:scale-105 flex items-center gap-2">
+                        Lihat Layanan <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <button class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-2xl font-bold transition">
+                        Hubungi Kami
+                    </button>
+                </div>
+            </div>
+            <div class="hidden lg:block animate__animated animate__zoomIn">
+                <img src="https://cdn-icons-png.flaticon.com/512/3067/3067260.png" alt="Tech Illustration" class="w-full max-w-md mx-auto filter drop-shadow-2xl">
+            </div>
+        </div>
+    </header>
 
-<section class="section">
-    <h2>Layanan</h2>
-    <div class="services">
-        <div class="card">Service Laptop</div>
-        <div class="card">Jual Komputer</div>
-        <div class="card">Instal Software</div>
-    </div>
-</section>
+    <section id="layanan" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-[#1a3673] mb-4">Layanan Unggulan Kami</h2>
+                <div class="h-1.5 w-20 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
 
-<footer>
-    <p>&copy; 2026 Karim Jaya Komputer</p>
-</footer>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="service-card p-10 bg-gray-50 rounded-3xl border border-gray-100 transition-all duration-300 group hover:bg-[#1a3673]">
+                    <div class="w-16 h-16 bg-blue-100 text-[#1a3673] rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:bg-blue-500 group-hover:text-white transition">
+                        <i class="fa-solid fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-white">Service Laptop</h3>
+                    <p class="text-gray-500 leading-relaxed group-hover:text-blue-100">Perbaikan hardware dan software untuk berbagai merk laptop dengan teknisi berpengalaman.</p>
+                </div>
 
-<!-- LOGIN MODAL -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h3>Login</h3>
-        <input type="text" id="loginUser" placeholder="Username">
-        <input type="password" id="loginPass" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <div class="switch" onclick="switchToRegister()">Belum punya akun? Register</div>
-    </div>
-</div>
+                <div class="service-card p-10 bg-gray-50 rounded-3xl border border-gray-100 transition-all duration-300 group hover:bg-[#1a3673]">
+                    <div class="w-16 h-16 bg-blue-100 text-[#1a3673] rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:bg-blue-500 group-hover:text-white transition">
+                        <i class="fa-solid fa-computer"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-white">Jual Komputer</h3>
+                    <p class="text-gray-500 leading-relaxed group-hover:text-blue-100">Menyediakan unit PC, laptop, dan komponen periferal dengan kualitas terbaik dan bergaransi.</p>
+                </div>
 
-<!-- REGISTER MODAL -->
-<div id="registerModal" class="modal">
-    <div class="modal-content">
-        <h3>Register</h3>
-        <input type="text" id="regUser" placeholder="Username">
-        <input type="password" id="regPass" placeholder="Password">
-        <button onclick="register()">Register</button>
-        <div class="switch" onclick="switchToLogin()">Sudah punya akun? Login</div>
-    </div>
-</div>
+                <div class="service-card p-10 bg-gray-50 rounded-3xl border border-gray-100 transition-all duration-300 group hover:bg-[#1a3673]">
+                    <div class="w-16 h-16 bg-blue-100 text-[#1a3673] rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:bg-blue-500 group-hover:text-white transition">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-white">Instal Software</h3>
+                    <p class="text-gray-500 leading-relaxed group-hover:text-blue-100">Layanan instalasi sistem operasi dan perangkat lunak pendukung kerja secara cepat dan aman.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- ADMIN LOGIN MODAL -->
-<div id="adminModal" class="modal">
-    <div class="modal-content">
-        <h3>Admin Login</h3>
-        <input type="text" id="adminUser" placeholder="Username Admin">
-        <input type="password" id="adminPass" placeholder="Password">
-        <button onclick="adminLogin()">Login Admin</button>
-    </div>
-</div>
-
-<script>
-function openLogin() {
-    document.getElementById("loginModal").style.display = "flex";
-}
-
-function openAdminLogin() {
-    document.getElementById("adminModal").style.display = "flex";
-}
-
-function closeModal() {
-    document.getElementById("loginModal").style.display = "none";
-    document.getElementById("registerModal").style.display = "none";
-    document.getElementById("adminModal").style.display = "none";
-}
-
-function switchToRegister() {
-    closeModal();
-    document.getElementById("registerModal").style.display = "flex";
-}
-
-function switchToLogin() {
-    closeModal();
-    document.getElementById("loginModal").style.display = "flex";
-}
-
-function register() {
-    let user = document.getElementById("regUser").value;
-    let pass = document.getElementById("regPass").value;
-
-    if(user === "" || pass === "") {
-        alert("Isi semua field!");
-        return;
-    }
-
-    localStorage.setItem(user, pass);
-    alert("Register berhasil!");
-    switchToLogin();
-}
-
-function login() {
-    let user = document.getElementById("loginUser").value;
-    let pass = document.getElementById("loginPass").value;
-
-    let storedPass = localStorage.getItem(user);
-
-    if(storedPass === pass) {
-        alert("Login berhasil!");
-        closeModal();
-    } else {
-        alert("Username / Password salah!");
-    }
-}
-
-function adminLogin() {
-    let user = document.getElementById("adminUser").value;
-    let pass = document.getElementById("adminPass").value;
-
-    if(user === "admin" && pass === "karim123") {
-        alert("Login Admin berhasil!");
-        window.location.href = "admin.html";
-    } else {
-        alert("Login Admin gagal!");
-    }
-}
-
-window.onclick = function(e) {
-    if (e.target.classList.contains('modal')) {
-        closeModal();
-    }
-}
-</script>
+    <footer class="bg-slate-900 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-6 mb-8 text-slate-400 text-xl">
+                <a href="#" class="hover:text-blue-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-blue-400 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-blue-400 transition"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+            <p class="text-slate-500 text-sm tracking-widest uppercase">
+                &copy; 2026 Karim Jaya Komputer. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
