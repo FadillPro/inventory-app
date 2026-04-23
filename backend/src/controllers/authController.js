@@ -1,26 +1,40 @@
-const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+// REGISTER
+function register() {
+    let nama = document.getElementById("nama").value;
+    let email = document.getElementById("email").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let confirm = document.getElementById("confirm").value;
 
-exports.register = async (req, res) => {
-    try {
-        const { username, password, role } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ username, password: hashedPassword, role });
-        res.status(201).json({ message: 'User berhasil dibuat' });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
+    if(password !== confirm) {
+        alert("Password tidak sama!");
+        return;
     }
-};
 
-exports.login = async (req, res) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({ where: { username } });
+    let user = { nama, email, username, password };
+    localStorage.setItem("user", JSON.stringify(user));
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-        res.json({ token, role: user.role });
+    alert("Registrasi berhasil!");
+    window.location.href = "login.html";
+}
+
+// LOGIN
+function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    if(user && user.username === username && user.password === password) {
+        alert("Login berhasil!");
+        window.location.href = "dashboard.html";
     } else {
-        res.status(401).json({ message: 'Username atau Password salah' });
+        alert("Username atau password salah!");
     }
-};
+}
+
+// LOGOUT
+function logout() {
+    alert("Logout berhasil!");
+    window.location.href = "login.html";
+}

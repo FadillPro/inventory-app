@@ -1,6 +1,3 @@
-const app = require('./src/App'); // Memanggil konfigurasi app
-const db = require('./src/config/db'); // Memanggil koneksi database
-
 const PORT = process.env.PORT || 5000;
 
 // Sinkronisasi Database
