@@ -6,19 +6,21 @@
     <title>Dashboard - Karim Jaya Komputer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
         .sidebar-item:hover { background-color: rgba(255, 255, 255, 0.1); }
         .active-link { background-color: #2563eb; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        .glass-modal { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .profile-border { border: 3px solid transparent; background: linear-gradient(white, white) padding-box, linear-gradient(to right, #2563eb, #7c3aed) border-box; }
     </style>
 </head>
 <body class="flex min-h-screen">
 
-    <aside class="w-72 bg-[#1e293b] text-white flex flex-col fixed h-full transition-all duration-300">
+    <aside class="w-72 bg-[#1e293b] text-white flex flex-col fixed h-full z-40 transition-all duration-300">
         <div class="p-8 text-center border-b border-gray-700">
-            <h2 class="text-2xl font-bold tracking-tight">Karim Jaya</h2>
+            <h2 class="text-2xl font-bold tracking-tight">Karim Jaya komputer</h2>
             <p class="text-gray-400 text-xs mt-1 uppercase tracking-widest">Inventory System</p>
         </div>
         
@@ -54,17 +56,25 @@
     <main class="ml-72 flex-1 p-10">
         <header class="flex justify-between items-center mb-10">
             <div>
-                <h1 class="text-3xl font-bold text-slate-800">Selamat Datang, Admin</h1>
-                <p class="text-slate-500">Pantau stok dan aktivitas Karim Jaya Komputer hari ini.</p>
+                <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Selamat Datang, <span id="display-admin-name">Administrator</span></h1>
+                <p class="text-slate-500">Pantau stok dan aktivitas Karim Jaya hari ini.</p>
             </div>
+            
             <div class="flex items-center gap-4">
-                <button class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 text-slate-600 hover:bg-gray-50 transition">
+                <button class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 text-slate-600 hover:bg-gray-50 transition relative">
                     <i class="fa-regular fa-bell"></i>
+                    <span class="absolute top-3 right-3 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
                 </button>
-                <div class="bg-white py-2 px-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 font-bold">A</div>
-                    <span class="text-sm font-semibold text-slate-700">Administrator</span>
-                </div>
+                
+                <button onclick="toggleEditModal()" class="bg-white py-2 px-3 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-3 hover:border-blue-300 transition group">
+                    <img id="header-avatar" src="https://ui-avatars.com/api/?name=Admin&background=1e293b&color=fff" 
+                         class="w-10 h-10 rounded-xl object-cover shadow-md shadow-slate-200" alt="Avatar">
+                    <div class="text-left hidden md:block">
+                        <span id="header-admin-name" class="text-sm font-bold text-slate-700 block">Administrator</span>
+                        <span class="text-[10px] text-blue-500 uppercase font-bold tracking-widest">Edit Profil</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-[10px] text-slate-300 group-hover:text-blue-500 transition ml-2"></i>
+                </button>
             </div>
         </header>
 
@@ -81,8 +91,8 @@
                 <div class="flex justify-between items-start mb-4">
                     <div class="p-3 bg-emerald-50 text-emerald-600 rounded-2xl"><i class="fa-solid fa-arrow-trend-up text-xl"></i></div>
                 </div>
-                <h3 class="text-slate-400 text-sm font-medium">Penjualan (Bulan Ini)</h3>
-                <p class="text-2xl font-bold text-slate-800">84 Transaksi</p>
+                <h3 class="text-slate-400 text-sm font-medium">Penjualan</h3>
+                <p class="text-2xl font-bold text-slate-800">84 Trx</p>
             </div>
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 transition hover:shadow-md">
                 <div class="flex justify-between items-start mb-4">
@@ -95,7 +105,7 @@
                 <div class="flex justify-between items-start mb-4">
                     <div class="p-3 bg-purple-50 text-purple-600 rounded-2xl"><i class="fa-solid fa-users text-xl"></i></div>
                 </div>
-                <h3 class="text-slate-400 text-sm font-medium">Supplier Aktif</h3>
+                <h3 class="text-slate-400 text-sm font-medium">Supplier</h3>
                 <p class="text-2xl font-bold text-slate-800">12 Mitra</p>
             </div>
         </section>
@@ -104,11 +114,11 @@
             <section class="lg:col-span-2 bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="p-6 border-b border-slate-50 flex justify-between items-center">
                     <h3 class="font-bold text-slate-800">Aktivitas Stok Terbaru</h3>
-                    <button class="text-blue-600 text-sm font-bold hover:underline">Semua Barang</button>
+                    <button class="text-blue-600 text-sm font-bold hover:underline">Lihat Semua</button>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead class="bg-slate-50 text-slate-400 text-[10px] uppercase tracking-widest font-bold">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-slate-400 text-[10px] uppercase font-bold tracking-widest">
                             <tr>
                                 <th class="px-6 py-4">Produk</th>
                                 <th class="px-6 py-4">Kategori</th>
@@ -116,30 +126,18 @@
                                 <th class="px-6 py-4">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-50 text-sm">
+                        <tbody class="divide-y divide-slate-50">
                             <tr class="hover:bg-slate-50 transition">
                                 <td class="px-6 py-4 flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-gray-100 rounded-xl"></div>
+                                    <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400"><i class="fa-solid fa-microchip"></i></div>
                                     <div>
                                         <p class="font-bold text-slate-700">SSD Samsung 980 Pro</p>
-                                        <p class="text-xs text-slate-400 tracking-tight">KJ-H0042</p>
+                                        <p class="text-[10px] text-slate-400">KJ-H0042</p>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-slate-500">Hardware</td>
-                                <td class="px-6 py-4 font-semibold text-slate-700">15 Pcs</td>
+                                <td class="px-6 py-4 font-bold">15 Pcs</td>
                                 <td class="px-6 py-4"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase">Ready</span></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition">
-                                <td class="px-6 py-4 flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-gray-100 rounded-xl"></div>
-                                    <div>
-                                        <p class="font-bold text-slate-700">Asus ROG Swift Monitor</p>
-                                        <p class="text-xs text-slate-400 tracking-tight">KJ-H0089</p>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-slate-500">Monitor</td>
-                                <td class="px-6 py-4 font-semibold text-slate-700">2 Pcs</td>
-                                <td class="px-6 py-4"><span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-bold uppercase">Critical</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -147,49 +145,115 @@
             </section>
 
             <section class="space-y-6">
-                <div class="bg-gradient-to-br from-blue-600 to-indigo-700 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
-                    <i class="fa-solid fa-plus absolute -right-4 -bottom-4 text-8xl text-white/10 rotate-12"></i>
-                    <h4 class="text-lg font-bold mb-2">Entri Cepat</h4>
-                    <p class="text-blue-100 text-sm mb-6">Tambahkan stok baru atau transaksi dalam sekejap.</p>
-                    <div class="space-y-3">
-                        <button class="w-full bg-white text-blue-600 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-50 transition">
-                            <i class="fa-solid fa-plus-circle"></i> Stok Baru
-                        </button>
-                        <button class="w-full bg-blue-500/20 text-white border border-blue-400/30 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-500/40 transition">
-                            <i class="fa-solid fa-cart-arrow-down"></i> Penjualan
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-clock-rotate-left text-blue-500"></i> Log Aktivitas
-                    </h4>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-start">
-                            <div class="w-2 h-2 mt-2 rounded-full bg-blue-500 ring-4 ring-blue-50"></div>
-                            <div>
-                                <p class="text-sm font-bold text-slate-700">Penjualan Baru</p>
-                                <p class="text-xs text-slate-400">10 Menit yang lalu • Laptop Acer</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 items-start">
-                            <div class="w-2 h-2 mt-2 rounded-full bg-green-500 ring-4 ring-green-50"></div>
-                            <div>
-                                <p class="text-sm font-bold text-slate-700">Stok Masuk</p>
-                                <p class="text-xs text-slate-400">2 Jam yang lalu • Keyboard Mechanical</p>
-                            </div>
-                        </div>
+                <div class="bg-gradient-to-br from-[#1a3673] to-blue-600 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
+                    <i class="fa-solid fa-plus-circle absolute -right-4 -bottom-4 text-9xl text-white/10 rotate-12"></i>
+                    <h4 class="text-lg font-bold mb-2 text-animate">Entri Cepat</h4>
+                    <p class="text-blue-100 text-sm mb-6 leading-relaxed">Update stok atau buat faktur penjualan baru sekarang.</p>
+                    <div class="space-y-3 relative z-10">
+                        <button class="w-full bg-white text-[#1a3673] py-3 rounded-xl font-bold shadow-lg hover:bg-blue-50 transition active:scale-95">Stok Baru</button>
+                        <button class="w-full bg-blue-500/20 text-white border border-blue-400/30 py-3 rounded-xl font-bold hover:bg-blue-500/40 transition active:scale-95">Penjualan</button>
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
+    <div id="editProfileModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate__animated animate__zoomIn animate__faster">
+                <div class="bg-[#1e293b] p-8 text-white relative">
+                    <button onclick="toggleEditModal()" class="absolute top-6 right-6 text-white/30 hover:text-white transition">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                    <h3 class="text-xl font-bold tracking-tight">Edit Profil Admin</h3>
+                    <p class="text-slate-400 text-sm mt-1">Perbarui foto dan identitas Anda</p>
+                </div>
+                
+                <form id="editProfileForm" class="p-8 space-y-6">
+                    <div class="flex flex-col items-center">
+                        <div class="relative group cursor-pointer" onclick="document.getElementById('input-foto').click()">
+                            <div class="w-24 h-24 rounded-[2rem] overflow-hidden profile-border shadow-2xl transition group-hover:scale-105">
+                                <img id="preview-foto" src="https://ui-avatars.com/api/?name=Admin&background=1e293b&color=fff" 
+                                     class="w-full h-full object-cover group-hover:opacity-50 transition">
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                <i class="fa-solid fa-camera text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                        <input type="file" id="input-foto" accept="image/*" class="hidden">
+                        <p class="text-[10px] text-slate-400 mt-3 font-bold uppercase tracking-widest">Klik foto untuk mengganti</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Nama Tampilan</label>
+                            <input type="text" id="input-name" required
+                                class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition text-sm" 
+                                placeholder="Contoh: Adam Karim">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Password Baru</label>
+                            <input type="password" id="input-pass"
+                                class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition text-sm" 
+                                placeholder="Biarkan kosong jika tidak diubah">
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 flex gap-3">
+                        <button type="button" onclick="toggleEditModal()" class="flex-1 py-4 text-slate-400 font-bold rounded-2xl hover:bg-slate-50 transition">Batal</button>
+                        <button type="submit" class="flex-1 py-4 bg-[#1a3673] text-white font-bold rounded-2xl shadow-xl shadow-blue-900/20 hover:bg-blue-800 transition transform active:scale-95">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // MODAL TOGGLE
+        function toggleEditModal() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // PHOTO PREVIEW LOGIC
+        document.getElementById('input-foto').addEventListener('change', function(e) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById('preview-foto').src = reader.result;
+            }
+            if(e.target.files[0]) {
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // FORM SUBMIT LOGIC
+        document.getElementById('editProfileForm').onsubmit = (e) => {
+            e.preventDefault();
+            const newName = document.getElementById('input-name').value;
+            const newPhoto = document.getElementById('preview-foto').src;
+            
+            // Update Dashboard UI
+            document.getElementById('display-admin-name').innerText = newName;
+            document.getElementById('header-admin-name').innerText = newName;
+            document.getElementById('header-avatar').src = newPhoto;
+            
+            alert("Profil Berhasil Diperbarui!");
+            toggleEditModal();
+        };
+
+        // LOGOUT LOGIC
         function logout() {
-            if(confirm("Apakah Anda yakin ingin keluar dari sistem?")) {
+            if(confirm("Keluar dari Sistem Karim Jaya Komputer?")) {
                 window.location.href = "login.html";
+            }
+        }
+
+        // CLOSE MODAL ON OVERLAY CLICK
+        window.onclick = function(event) {
+            const modal = document.getElementById('editProfileModal');
+            if (event.target == modal.querySelector('.absolute.inset-0')) {
+                toggleEditModal();
             }
         }
     </script>
